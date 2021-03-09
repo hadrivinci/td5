@@ -1,3 +1,4 @@
+import pandas as pd
 class Book:
     def __init__(self, name):
         self.name = name
@@ -9,16 +10,17 @@ class Book:
     def display_book(self, volume, price, buy):
         sOuput = 'Book on ' + self.name
         print(sOuput)
+        outputDict = {}
         for price in sorted(self.sellDict):
             priceDict = self.sellDict[price]
             for nId in priceDict:
-                sOuput = '        SELL ' + repr(priceDict[nId]) + '@' + repr(price) + ' id=' + repr(nId) + ' on ' + self.name
-                print(sOuput)
+                outputDict[nId] = [ 'SELL', priceDict[nId], price, nId ]
         for price in sorted(self.buyDict, key=None, reverse=True):
             priceDict = self.buyDict[price]
             for nId in priceDict:
-                sOuput = '        BUY ' + repr(priceDict[nId]) + '@' + repr(price) + ' id=' + repr(nId) + ' on ' + self.name
-                print(sOuput)
+                outputDict[nId] = [ 'BUY', priceDict[nId], price, nId ]
+        df = pd.DataFrame(outputDict.values(), index=outputDict.keys(), columns=['Order', 'Quantities', 'Price', 'Id'])
+        print(df.to_string(index=False))
         print('-----------------------------')
         return
             
