@@ -2,10 +2,10 @@
 
 if [[ ! -f ./virtualenv ]]
 then
-    pip3 install virtualenv
+    python -m pip install virtualenv
 	python -m venv ./virtualenv
 	source ./virtualenv/script/activate
-	pip3 install -r ./requirements.txt
+	python -m pip install -r ./requirements.txt
 else
 	source ./virtualenv/Scripts/activate
 fi
